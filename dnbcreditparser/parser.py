@@ -36,9 +36,9 @@ class CreditRating:
         temp = []
         i = 0
         while i < len(self.ratings):
-            if len(self.ratings[i])==6:
+            if len(self.ratings[i])>=5:
                 temp.append(float(self.ratings[i][:3]))
-                temp.append(float(self.ratings[i][3:]))
+                temp.append(float(self.ratings[i][3:6]))
                 i=i+2
             elif len(self.ratings[i])==4:
                 temp.append(float(self.ratings[i][:3]))
@@ -78,7 +78,6 @@ class CreditRating:
         temp = []
         i = 0
         while i < len(self.ratings):
-
             if self.ratings[i]=="1" or (len(self.ratings[0]) > 1 and len(
                     self.ratings[i]) == 1):  # If first element is very low rating, do not check for split fields
                 newval = self.ratings[i] if i + 1 == len(self.ratings) else self.ratings[i] + self.ratings[i + 1]
@@ -113,10 +112,12 @@ def parse_credit_rating(filepath):
     else:
         columns = filepath.name.split("_")
     dt = columns[0]
-    dtiso = "20" + dt[4:6] + "-" +dt[2:4] + "-" + dt[0:2]
-    pdfReader = PyPDF2.PdfFileReader(filepath)
+    dtiso = "20" + dt[0:2] + "-" +dt[2:4] + "-" + dt[4:6]
+    try:
+        pdfReader = PyPDF2.PdfFileReader(filepath)
+    except:
+        return None, None
     companies = []
-
     def parse_page(pagenr):
         pageObj = pdfReader.getPage(pagenr)
         lines = pageObj.extractText().split("\n")
@@ -177,7 +178,7 @@ def parse_credit_rating(filepath):
             }
         )
     df = pd.DataFrame.from_dict(dicts)
-    return df
+    return dtiso, df
 
 
 

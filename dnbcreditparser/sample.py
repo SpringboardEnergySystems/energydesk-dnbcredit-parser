@@ -13,9 +13,11 @@ logging.basicConfig(level=logging.INFO,
 if __name__ == '__main__':
     starter=dirname(__file__)
     from pathlib import Path
-    path = Path("./data/221102_WeeklyCreditReport.pdf")
-    filep = os.path.join(starter, path.absolute())
-    print(filep)
-    df=parse_credit_rating(filep)
-    print(df)
+    for p in os.listdir("./data/"):
+        print(p)
+        path = Path("./data/" + str(p))
+        filep = os.path.join(starter, path.absolute())
+        #print(filep)
+        dtiso, df=parse_credit_rating(filep)
+        print(dtiso, df)
 
