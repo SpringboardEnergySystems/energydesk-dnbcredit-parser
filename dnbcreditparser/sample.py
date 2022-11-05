@@ -19,8 +19,8 @@ if __name__ == '__main__':
     for p in os.listdir("./data/"):
         path = Path("./data/" + str(p))
         filep = os.path.join(starter, path.absolute())
-        dtiso, df=parse_credit_rating(filep)
-        if dtiso is None:
+        iso_date, df=parse_credit_rating(filep)
+        if iso_date is None:
             continue
-        upload_ratings(api_conn, dtiso, df)
+        upload_ratings(api_conn, iso_date, df)
 
