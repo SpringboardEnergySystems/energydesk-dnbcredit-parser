@@ -72,8 +72,6 @@ class CreditRating:
             i=i-1
 
 
-
-
     def processes_ratings(self):
         temp = []
         i = 0
