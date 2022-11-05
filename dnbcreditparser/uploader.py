@@ -8,5 +8,3 @@ def upload_ratings(api_conn, isodt,df):
     for rec in result:
         cc=CounterPartRating( rec['company'], isodt, rec)
         CounterPartsApi.upsert_credit_rating(api_conn, cc)
-
-    #print(result)

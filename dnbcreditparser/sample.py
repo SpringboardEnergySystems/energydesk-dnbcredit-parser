@@ -17,13 +17,10 @@ if __name__ == '__main__':
     api_conn = init_api(dirname(__file__))
     from pathlib import Path
     for p in os.listdir("./data/"):
-        print(p)
         path = Path("./data/" + str(p))
         filep = os.path.join(starter, path.absolute())
-        #print(filep)
         dtiso, df=parse_credit_rating(filep)
         if dtiso is None:
             continue
-        print(dtiso, df)
         upload_ratings(api_conn, dtiso, df)
 
