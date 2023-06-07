@@ -20,6 +20,7 @@ if __name__ == '__main__':
         path = Path("./data/" + str(p))
         filep = os.path.join(starter, path.absolute())
         iso_date, df=parse_credit_rating(filep)
+        print(df)
         if iso_date is None:
             continue
         upload_ratings(api_conn, iso_date, df)

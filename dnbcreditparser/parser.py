@@ -112,13 +112,14 @@ def parse_credit_rating(filepath):
     dt = columns[0]
     dtiso = "20" + dt[0:2] + "-" +dt[2:4] + "-" + dt[4:6]
     try:
-        pdfReader = PyPDF2.PdfFileReader(filepath)
-    except:
+        pdfReader = PyPDF2.PdfReader(filepath)
+    except Exception as e:
+        print(e)
         return None, None
     companies = []
     def parse_page(pagenr):
-        pageObj = pdfReader.getPage(pagenr)
-        lines = pageObj.extractText().split("\n")
+        pageObj = pdfReader.pages[pagenr]
+        lines = pageObj.extract_text().split("\n")
         idx = 0
         while idx < len(lines):
             line = lines[idx]
